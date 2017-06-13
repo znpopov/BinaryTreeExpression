@@ -4,6 +4,11 @@ import java.util.Scanner;
 import java.util.Stack;
 
 import com.fmi.tree.ArithmeticTreeExpression;
+import com.fmi.tree.command.LightOffTreeCommand;
+import com.fmi.tree.command.LightOnTreeCommand;
+import com.fmi.tree.command.RemoteTreeControl;
+import com.fmi.tree.command.TreeCommand;
+import com.fmi.tree.observer.TreeSubject;
 
 public class ArithmeticTreeDemo {
 	
@@ -15,6 +20,7 @@ public class ArithmeticTreeDemo {
 	
     public static void main(String[] args) {
     	TreeDirector director = new TreeDirector();
+    	TreeSubject subject = new TreeSubject();
         Scanner scanner = new Scanner(System.in);
         String input;
         Stack<ArithmeticTreeExpression> st = new Stack<ArithmeticTreeExpression>();
@@ -26,7 +32,7 @@ public class ArithmeticTreeDemo {
             if (isInteger(input)) {
             	leafBuilder = new ExternalNodeBuilder(Integer.parseInt(input));
             	director.setBuilder(leafBuilder);
-            	director.constructTree();
+            	director.constructTree(subject);
             	t = director.getTreeNode();
             	st.push(t);
             	continue;
@@ -41,7 +47,7 @@ public class ArithmeticTreeDemo {
             } else {
             	break;
             }
-            director.constructTree();
+            director.constructTree(subject);
             if (t == null) {
             	t = director.getTreeNode();
             	st.push(t);
@@ -51,17 +57,48 @@ public class ArithmeticTreeDemo {
             t1 = st.pop();      // Remove top
             t2 = st.pop();
             //  make them children
-            t.setLeftNode(t2);
-            t.setRightNode(t1);
+            t.setLeftNode(t1);
+            t.setRightNode(t2);
             st.push(t);
         }
         t = st.peek();
         st.pop();
         scanner.close();
+        
+        RemoteTreeControl control = new RemoteTreeControl();
 
+        TreeCommand lightsOn = new LightOnTreeCommand(t);
+
+        TreeCommand lightsOff = new LightOffTreeCommand(t);
+
+        //switch on
+
+        control.setCommand(lightsOn);
+        control.pressButton();
+        printPreorder(t);
+        //switch off
+
+        control.setCommand(lightsOff);
+        control.pressButton();
+        printPreorder(t);
         System.out.println("Result2 is: " + t.process());
+        subject.setState(5);
+        System.out.println("New result2 is: " + t.process());
     }
     
+	private static void printPreorder(ArithmeticTreeExpression node) {
+		if (node == null)
+            return;
+ 
+        /* first print data of node */
+        node.printData();
+ 
+        /* then recur on left subtree */
+        printPreorder(node.getLeftNode());
+ 
+        /* now recur on right subtree */
+        printPreorder(node.getRightNode());
+	}
     
     public static boolean isInteger(String str) {
         if (str == null) {

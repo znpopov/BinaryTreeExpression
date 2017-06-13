@@ -1,10 +1,13 @@
 package com.fmi.tree;
 
-public abstract class InternalNode implements ArithmeticTreeExpression {
+import com.fmi.tree.observer.TreeObserver;
+
+public abstract class InternalNode extends TreeObserver implements ArithmeticTreeExpression {
 	
 	protected String data;
 	protected ArithmeticTreeExpression leftNode;
 	protected ArithmeticTreeExpression rightNode;
+	boolean lightOn = true;
 	
 	public InternalNode(String data) {
 		this.data = data;
@@ -35,7 +38,21 @@ public abstract class InternalNode implements ArithmeticTreeExpression {
 	
 	@Override
 	public void printData() {
-		System.out.println(data);
+		System.out.println(data + " lights on: " + lightOn);
+	}
+	
+	@Override
+	public void switchOn() {
+		lightOn = true;
+		this.getLeftNode().switchOn();
+		this.getRightNode().switchOn();
+	}
+	
+	@Override
+	public void switchOff() {
+		lightOn = false;
+		this.getLeftNode().switchOff();
+		this.getRightNode().switchOff();
 	}
 	
 }

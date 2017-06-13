@@ -1,6 +1,7 @@
 package com.fmi.tree.builder;
 
 import com.fmi.tree.ArithmeticTreeExpression;
+import com.fmi.tree.observer.TreeSubject;
 
 public abstract class ArithmeticTreeBuilder {
 	
@@ -10,6 +11,6 @@ public abstract class ArithmeticTreeBuilder {
 		return node;
 	}
 	
-    public abstract void createNewNode();
+    public abstract void createNewNode(TreeSubject subject);
 	
 }

@@ -1,6 +1,7 @@
 package com.fmi.tree.builder;
 
 import com.fmi.tree.ExternalNode;
+import com.fmi.tree.observer.TreeSubject;
 
 public class ExternalNodeBuilder extends ArithmeticTreeBuilder {
 	
@@ -20,8 +21,8 @@ public class ExternalNodeBuilder extends ArithmeticTreeBuilder {
 	}
 	
 	@Override
-	public void createNewNode() {
-		this.node = new ExternalNode(data);
+	public void createNewNode(TreeSubject subject) {
+		this.node = new ExternalNode(subject, data);
 	}
 
 }

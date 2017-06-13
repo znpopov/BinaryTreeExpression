@@ -1,15 +1,21 @@
 package com.fmi.tree;
 
-public class ExternalNode implements ArithmeticTreeExpression {
+import com.fmi.tree.observer.TreeObserver;
+import com.fmi.tree.observer.TreeSubject;
+
+public class ExternalNode extends TreeObserver implements ArithmeticTreeExpression {
 	
 	private int data;
+	private boolean lightOn = true;
 	
 	public ExternalNode() {
 		super();
 	}
 	
-	public ExternalNode(int data) {
+	public ExternalNode(TreeSubject subject, int data) {
 		super();
+		this.treeSubject = subject;
+		this.treeSubject.attach(this);
 		this.data = data;
 	}
 	
@@ -46,7 +52,22 @@ public class ExternalNode implements ArithmeticTreeExpression {
 	
 	@Override
 	public void printData() {
-		System.out.println(this.data);
+		System.out.println(data + " lights on: " + lightOn);
+	}
+	
+	@Override
+	public void update() {
+		this.data += this.treeSubject.getState();
+	}
+	
+	@Override
+	public void switchOn() {
+		lightOn = true;
+	}
+	
+	@Override
+	public void switchOff() {
+		lightOn = false;
 	}
 
 }

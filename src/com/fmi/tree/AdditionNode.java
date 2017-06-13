@@ -1,9 +1,13 @@
 package com.fmi.tree;
 
+import com.fmi.tree.observer.TreeSubject;
+
 public class AdditionNode extends InternalNode {
 	
-	public AdditionNode() {
+	public AdditionNode(TreeSubject subject) {
 		super("+");
+		this.treeSubject = subject;
+		this.treeSubject.attach(this);
 	}
 	
 	@Override
@@ -17,6 +21,11 @@ public class AdditionNode extends InternalNode {
 	@Override
 	public int accept(TreeVisitor visitor) {
 		return visitor.visit(this);
+	}
+	
+	@Override
+	public void update() {
+		System.out.println("Performing adjusted addition with state " + this.treeSubject.getState()); 
 	}
 
 }

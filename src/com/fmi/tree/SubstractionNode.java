@@ -1,9 +1,13 @@
 package com.fmi.tree;
 
+import com.fmi.tree.observer.TreeSubject;
+
 public class SubstractionNode extends InternalNode {
 	
-	public SubstractionNode() {
+	public SubstractionNode(TreeSubject subject) {
 		super("-");
+		this.treeSubject = subject;
+		this.treeSubject.attach(this);
 	}
 	
 	@Override
@@ -14,6 +18,11 @@ public class SubstractionNode extends InternalNode {
 	@Override
 	public int accept(TreeVisitor visitor) {
 		return visitor.visit(this);
+	}
+	
+	@Override
+	public void update() {
+		System.out.println("Performing adjusted substraction with state " + this.treeSubject.getState()); 
 	}
 	
 }

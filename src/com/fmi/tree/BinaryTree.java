@@ -1,5 +1,7 @@
 package com.fmi.tree;
 
+import com.fmi.tree.observer.TreeSubject;
+
 public class BinaryTree {
 	
 	ArithmeticTreeExpression root;
@@ -7,11 +9,12 @@ public class BinaryTree {
 	public static void main(String[] args) {
 		System.out.println("STARRRRRRRRTTTTTTTTTT");
         BinaryTree tree = new BinaryTree();
-        tree.root = new AbsNode();
-        tree.root.setLeftNode(new SubstractionNode());
-        tree.root.setRightNode(new ExternalNode(3));
-        tree.root.getLeftNode().setLeftNode(new ExternalNode(4));
-        tree.root.getLeftNode().setRightNode(new ExternalNode(5));
+        TreeSubject subject = new TreeSubject();
+        tree.root = new AbsNode(subject);
+        tree.root.setLeftNode(new SubstractionNode(subject));
+        tree.root.setRightNode(new ExternalNode(subject, 3));
+        tree.root.getLeftNode().setLeftNode(new ExternalNode(subject, 4));
+        tree.root.getLeftNode().setRightNode(new ExternalNode(subject, 5));
  
         System.out.println("Preorder traversal of binary tree is ");
         tree.printPreorder();

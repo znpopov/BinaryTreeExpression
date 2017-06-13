@@ -15,5 +15,9 @@ public interface ArithmeticTreeExpression {
 	int process();
 	
 	void printData();
-
+	
+	void switchOn();
+	
+	void switchOff();
+	
 }
