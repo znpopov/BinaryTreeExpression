@@ -1,0 +1,11 @@
+https://sourcemaking.com/design_patterns/composite
+http://algorithms.tutorialhorizon.com/binary-search-tree-complete-implementation/
+https://stackoverflow.com/questions/14469775/evaluate-tree-expression-via-visitor
+https://dzone.com/articles/design-patterns-visitor
+http://carminedimascio.com/2014/02/applying-the-builder-pattern/
+
+http://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
+
+https://www.tutorialspoint.com/design_pattern/observer_pattern.htm
+
+https://dzone.com/articles/design-patterns-command
