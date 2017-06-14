@@ -1,5 +1,7 @@
 package com.fmi.tree;
 
+import com.fmi.tree.visitor.TreeVisitor;
+
 public interface ArithmeticTreeExpression {
 	
 	ArithmeticTreeExpression getLeftNode();

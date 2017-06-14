@@ -2,6 +2,7 @@ package com.fmi.tree;
 
 import com.fmi.tree.observer.TreeObserver;
 import com.fmi.tree.observer.TreeSubject;
+import com.fmi.tree.visitor.TreeVisitor;
 
 public class ExternalNode extends TreeObserver implements ArithmeticTreeExpression {
 	

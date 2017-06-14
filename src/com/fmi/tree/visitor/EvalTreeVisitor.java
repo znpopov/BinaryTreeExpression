@@ -1,15 +1,21 @@
-package com.fmi.tree;
+package com.fmi.tree.visitor;
+
+import com.fmi.tree.AbsNode;
+import com.fmi.tree.AdditionNode;
+import com.fmi.tree.ExternalNode;
+import com.fmi.tree.MultiplicationNode;
+import com.fmi.tree.SubstractionNode;
 
 public class EvalTreeVisitor implements TreeVisitor {
 	
 	@Override
 	public int visit(AdditionNode tree) {
-		return tree.getLeftNode().accept(this) * tree.getRightNode().accept(this);
+		return tree.getLeftNode().accept(this) + tree.getRightNode().accept(this);
 	}
 	
 	@Override
 	public int visit(SubstractionNode tree) {
-		return tree.getLeftNode().accept(this) * tree.getRightNode().accept(this);
+		return tree.getLeftNode().accept(this) - tree.getRightNode().accept(this);
 	}
 	
 	@Override
@@ -19,7 +25,7 @@ public class EvalTreeVisitor implements TreeVisitor {
 	
 	@Override
 	public int visit(AbsNode tree) {
-		return tree.getLeftNode().accept(this) * tree.getRightNode().accept(this);
+		return Math.abs(tree.getLeftNode().accept(this));
 	}
 	
 	@Override

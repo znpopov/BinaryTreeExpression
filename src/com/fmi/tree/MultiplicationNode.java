@@ -1,6 +1,7 @@
 package com.fmi.tree;
 
 import com.fmi.tree.observer.TreeSubject;
+import com.fmi.tree.visitor.TreeVisitor;
 
 public class MultiplicationNode extends InternalNode {
 	

@@ -1,14 +1,21 @@
-package com.fmi.tree.builder;
+package com.fmi.tree;
 
 import java.util.Scanner;
 import java.util.Stack;
 
-import com.fmi.tree.ArithmeticTreeExpression;
+import com.fmi.tree.builder.AbsNodeBuilder;
+import com.fmi.tree.builder.AdditionNodeBuilder;
+import com.fmi.tree.builder.ArithmeticTreeBuilder;
+import com.fmi.tree.builder.ExternalNodeBuilder;
+import com.fmi.tree.builder.MultiplicationNodeBuilder;
+import com.fmi.tree.builder.SubstractionNodeBuilder;
+import com.fmi.tree.builder.TreeDirector;
 import com.fmi.tree.command.LightOffTreeCommand;
 import com.fmi.tree.command.LightOnTreeCommand;
 import com.fmi.tree.command.RemoteTreeControl;
 import com.fmi.tree.command.TreeCommand;
 import com.fmi.tree.observer.TreeSubject;
+import com.fmi.tree.visitor.EvalTreeVisitor;
 
 public class ArithmeticTreeDemo {
 	
@@ -81,9 +88,11 @@ public class ArithmeticTreeDemo {
         control.setCommand(lightsOff);
         control.pressButton();
         printPreorder(t);
-        System.out.println("Result2 is: " + t.process());
+        EvalTreeVisitor treeVisitor = new EvalTreeVisitor();
+        System.out.println("With visitor result is: " + t.accept(treeVisitor));
+        System.out.println("Result is: " + t.process());
         subject.setState(5);
-        System.out.println("New result2 is: " + t.process());
+        System.out.println("New result is: " + t.process());
     }
     
 	private static void printPreorder(ArithmeticTreeExpression node) {
